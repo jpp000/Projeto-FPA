@@ -90,3 +90,16 @@ def visualizar_elemento():
          print('O nome dessa receita não foi cadastrado')
    except Exception as e:
       print(f"Erro inesperado ao visualizar a receita. Mensagem: {e}")
+
+def filtra_por_pais():
+    nacionalidade = str(input('Digite o país que você deseja filtrar: ')).strip().lower()
+
+    cont = 0
+    for receita in receitas:
+        if receita['pais'].lower() == nacionalidade:
+            for key, value in receita.items():
+                print(f'{key}: {value}\n')
+            cont += 1
+
+    if cont == 0:
+        print('País não encontrado')
