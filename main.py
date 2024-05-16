@@ -349,3 +349,18 @@ def sugerir_receitas_fav():
    except Exception as e:
       print(f"Erro: {e}")
 
+tam = 55
+
+opcoes = {
+   "1": "Adicionar Receita",
+   "2": "Visualizar Receita",
+   "3": "Filtrar Receita por País",
+   "4": "Atualizar Receita",
+   "5": "Excluir Receita",
+   "6": "Salvar como Favorita",
+   "7": "Visualizar Receitas Favoritas",
+   "8": "Sugerir Receita Aleatória",
+   "9": "Sugerir Receita Aleatória da lista de Favoritos",
+   "999": "Sair"   
+}
+
