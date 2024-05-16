@@ -260,3 +260,28 @@ def atualizar_elemento():
       print("Arquivo 'receitas.csv' não encontrado.")
    except Exception as e:
       print(f"Erro inesperado ao atualizar a receita. Mensagem: {e}")
+
+def add_lista_fav():
+   try:
+      nome = input('Digite o nome da receita que você deseja adicionar como favorita: ').strip().lower()
+
+      with open('receitas_favoritas.csv', 'r', encoding='utf-8') as file:
+         favoritas = file.readlines()
+         for fav in favoritas:
+               if nome in fav.lower():
+                  print('A receita já está cadastrada como favorita.')
+                  return
+
+      for receita in receitas:
+         if receita['nome'].lower() == nome:
+               with open('receitas_favoritas.csv', 'a', encoding='utf-8') as file:
+                  file.write(f"{receita['nome']},{receita['pais']},{f'\"{receita['ingredientes']}\"'},{f'\"{receita['preparo']}\"'}\n")
+               print('Receita adicionada aos favoritos com sucesso.')
+               return
+
+      print('A receita digitada não foi encontrada.')
+   except FileNotFoundError:
+      print("Arquivo não encontrado.")
+   except Exception as e:
+      print(f"Erro: {e}")
+
