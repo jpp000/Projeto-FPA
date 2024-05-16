@@ -301,3 +301,24 @@ def visualizar_favoritos():
    except Exception as e:
       print(f"Erro: {e}")
 
+def excluir_receita():
+   try:
+      nome = input("Digite o nome da receita que você deseja excluir: ").strip().lower()
+
+      for receita in receitas:
+         if receita['nome'].lower() == nome:
+               receitas.remove(receita)
+               print("Receita excluída com sucesso.")
+               break
+      else:
+         print("A receita digitada não foi encontrada.")
+
+      with open('receitas.csv', 'w', encoding='utf-8') as file:
+         file.write('nome,pais,ingredientes,preparo\n')
+         for receita in receitas:
+               file.write(f"{receita['nome']},{receita['pais']},{f'\"{receita['ingredientes']}\"'},{f'\"{receita['preparo']}\"'}\n")
+   except FileNotFoundError:
+      print("Arquivo não encontrado.")
+   except Exception as e:
+      print(f"Erro: {e}")
+
