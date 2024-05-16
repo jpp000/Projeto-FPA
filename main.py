@@ -211,46 +211,52 @@ def filtra_por_pais():
       print(f"Erro inesperado ao filtrar por país. Mensagem: {e}")
 
 def atualizar_elemento():
-    while True:
-        receita_escolhida = input('Digite o nome da receita que você deseja atualizar: ').lower().strip()
-        categoria = input('Digite a categoria da receita que você deseja atualizar: ').lower().strip()
+   try:
+      while True:
+         receita_escolhida = input('Digite o nome da receita que você deseja atualizar: ').lower().strip()
+         categoria = input('Digite a categoria da receita que você deseja atualizar: ').lower().strip()
 
-        for receita in receitas:
-            if receita['nome'].lower() == receita_escolhida:
-                if 'nome' in categoria:
-                    sub = input(f'Qual nome você deseja atualizar na receita {receita_escolhida}: ').lower().strip()
-                    receita['nome'] = sub
-                    break
+         for receita in receitas:
+               if receita['nome'].lower() == receita_escolhida:
+                  if 'nome' in categoria:
+                     sub = input(f'Qual nome você deseja atualizar na receita {receita_escolhida}: ').lower().strip()
+                     receita['nome'] = sub
+                     break
 
-                elif 'pais' in categoria:
-                    sub = input(f'Digite o nome do novo país atualizado da receita {receita_escolhida}: ').lower().strip()
-                    receita['pais'] = sub
-                    break
+                  elif 'pais' in categoria:
+                     sub = input(f'Digite o nome do novo país atualizado da receita {receita_escolhida}: ').lower().strip()
+                     receita['pais'] = sub
+                     break
 
-                elif 'ing' in categoria:
-                    escolha = input('Você deseja adicionar ingredientes a categoria ou atualizar todos os ingredientes: [add] para adicionar e [att] para atualizar: ').lower().strip()
+                  elif 'ing' in categoria:
+                     escolha = input('Você deseja adicionar ingredientes a categoria ou atualizar todos os ingredientes: [add] para adicionar e [att] para atualizar: ').lower().strip()
 
-                    if 'add' in escolha:
-                        add = input(f'Qual item você deseja adicionar na receita {receita_escolhida}: ').lower().strip()
-                        receita['ingredientes'] += f',{add}'
-                        break
+                     if 'add' in escolha:
+                           add = input(f'Qual item você deseja adicionar na receita {receita_escolhida}: ').lower().strip()
+                           receita['ingredientes'] += f',{add}'
+                           break
 
-                    elif 'att' in escolha:
-                        att = input(f'Qual item você deseja atualizar nos ingredientes da receita {receita_escolhida}: ').lower().strip()
-                        receita['ingredientes'] = att
-                        break
+                     elif 'att' in escolha:
+                           att = input(f'Qual item você deseja atualizar nos ingredientes da receita {receita_escolhida}: ').lower().strip()
+                           receita['ingredientes'] = att
+                           break
 
-                elif 'preparo' in categoria:
-                    sub = input(f'Qual nome você deseja atualizar na receita {receita_escolhida}: ').lower().strip()
-                    receita['preparo'] = sub
-                    break
+                  elif 'preparo' in categoria:
+                     sub = input(f'Qual nome você deseja atualizar na receita {receita_escolhida}: ').lower().strip()
+                     receita['preparo'] = sub
+                     break
 
-        else:
-            print("Categoria inválida. Por favor, escolha uma das opções válidas.")
-            continue
+         else:
+               print("Categoria inválida. Por favor, escolha uma das opções válidas.")
+               continue
 
-        with open('receitas.csv', 'w', encoding='utf-8') as file:
-            file.write('nome,pais,ingredientes,preparo\n')
-            for rec in receitas:
-                file.write(f"{rec['nome']},{rec['pais']},{f'"{rec['ingredientes']}"'},{f'"{rec['preparo']}"'}\n")
-        break
+         with open('receitas.csv', 'w', encoding='utf-8') as file:
+               file.write('nome,pais,ingredientes,preparo\n')
+               for rec in receitas:
+                  file.write(f"{rec['nome']},{rec['pais']},{f'"{rec['ingredientes']}"'},{f'"{rec['preparo']}"'}\n")
+         break
+
+   except FileNotFoundError:
+      print("Arquivo 'receitas.csv' não encontrado.")
+   except Exception as e:
+      print(f"Erro inesperado ao atualizar a receita. Mensagem: {e}")
