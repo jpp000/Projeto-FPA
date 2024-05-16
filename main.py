@@ -322,3 +322,15 @@ def excluir_receita():
    except Exception as e:
       print(f"Erro: {e}")
 
+def sugerir_receitas():
+   try:
+      n_aleatorio = randint(0, (len(receitas) - 1))
+      receita_sugerida = receitas[n_aleatorio]
+
+      print(f"Que tal experimentar a deliciosa {receita_sugerida['nome']}? Originária do {receita_sugerida['pais']}, os ingredientes necessários são {receita_sugerida['ingredientes']}, e seu modo de preparo é: {receita_sugerida['preparo']}\n")
+      
+   except IndexError:
+      print("Não há receitas cadastradas para sugerir.")
+   except Exception as e:
+      print(f"Erro: {e}")
+
