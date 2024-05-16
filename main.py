@@ -334,3 +334,18 @@ def sugerir_receitas():
    except Exception as e:
       print(f"Erro: {e}")
 
+def sugerir_receitas_fav():
+   try:         
+      list_fav = pega_receita('receitas_favoritas.csv')
+      n_aleatorio = randint(0, (len(list_fav) - 1))
+      receita_sugerida = list_fav[n_aleatorio]
+
+      print(f"Que tal experimentar a deliciosa {receita_sugerida['nome']}? Originária do {receita_sugerida['pais']}, os ingredientes necessários são {receita_sugerida['ingredientes']}, e seu modo de preparo é: {receita_sugerida['preparo']}\n")
+         
+   except FileNotFoundError:
+      print("Arquivo não encontrado.")
+   except IndexError:
+      print("Não há receitas cadastradas para sugerir.")
+   except Exception as e:
+      print(f"Erro: {e}")
+
