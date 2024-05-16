@@ -285,3 +285,13 @@ def add_lista_fav():
    except Exception as e:
       print(f"Erro: {e}")
 
+def visualizar_favoritos():
+    lista_fav = pega_receita('receitas_favoritas.csv')
+
+    print('\nLista Receitas Favoritas\n\n')
+
+    for receita in lista_fav:
+        print(f"{receita['nome']} que seu pais original é {receita['pais']} os ingredientes necessarios para a sua realização seram {receita['ingredientes']} e o modo de preparo será feito dessa forma: {receita['preparo']}\n")
+
+    return lista_fav
+
