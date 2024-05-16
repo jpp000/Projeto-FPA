@@ -38,30 +38,37 @@ def pega_receita(nome_arquivo):
 receitas = pega_receita('receitas.csv')
 
 def adicionar():
-    with open('receitas.csv', 'a') as file:
-        novo_elemento = {}
-        tipos = ['o nome da receita', 'o país de origem', 'os ingredientes', 'o modo de preparo']
+   try:
+      with open('receitas.csv', 'a') as file:
+         novo_elemento = {}
+         tipos = ['o nome da receita','o país de origem','os ingredientes','o modo de preparo']
 
-        for i in range(len(tipos)):
-            elemento_nova_receita = input(f'Digite {tipos[i]}: ')
+         for i in range(len(tipos)):
+               try:
+                  elemento_nova_receita = input(f'Digite {tipos[i]}: ')
 
-            if i == 0:
-                novo_elemento['nome'] = elemento_nova_receita
-            elif i == 1:
-                novo_elemento['pais'] = elemento_nova_receita
-            elif i == 2:
-                novo_elemento['ingredientes'] = elemento_nova_receita
-            elif i == 3:
-                novo_elemento['preparo'] = elemento_nova_receita
+                  if i == 0:
+                     novo_elemento['nome'] = elemento_nova_receita
+                  elif i == 1:
+                     novo_elemento['pais'] = elemento_nova_receita
+                  elif i == 2:
+                     novo_elemento['ingredientes'] = elemento_nova_receita
+                  elif i == 3:
+                     novo_elemento['preparo'] = elemento_nova_receita
 
-            if i > 2:
-                if ' ' in elemento_nova_receita:
-                    file.write(f'"{elemento_nova_receita}"' + '\n')
-                else:
-                    file.write(elemento_nova_receita + '\n')
-            else:
-                if ' ' in elemento_nova_receita:
-                    file.write(f'"{elemento_nova_receita}"' + ',')
-                else:
-                    file.write(elemento_nova_receita + ',')
-
+                  if i > 2:
+                     if ' ' in elemento_nova_receita:
+                           file.write(f'"{elemento_nova_receita}"' + '\n')
+                     else:
+                           file.write(elemento_nova_receita + '\n')
+                  else:
+                     if ' ' in elemento_nova_receita:
+                           file.write(f'"{elemento_nova_receita}"' + ',')
+                     else:
+                           file.write(elemento_nova_receita + ',')
+               except Exception as e:
+                  print(f"Erro: {e}.")
+   except FileNotFoundError:
+      print("Arquivo não encontrado.")
+   except Exception as e:
+      print(f"Erro: {e}.")
