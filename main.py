@@ -12,7 +12,7 @@ def pega_receita(nome_arquivo):
                   nome, pais, *resto = line.strip().split(',', maxsplit=2)
                   
                   if resto[0][0] == '"':
-                     resto[0] = resto[0][1:]  
+                     resto[0] = resto[0][1:]  # Remove a primeira aspas duplas
                   ingredientes, preparo = resto[0].split('","')
                   preparo = preparo.strip('"')
 
@@ -37,105 +37,6 @@ def pega_receita(nome_arquivo):
 
 receitas = pega_receita('receitas.csv')
 
-
-def atualizar_elemento():
-    
-    try:
-        while True:
-            receita_escolhida = input('Digite o nome da receita que você deseja atualizar: ').lower().strip()
-            categoria = input('Digite a categoria da receita que você deseja atualizar [nome] [pais] [ingredientes] [preparo]: ').lower().strip()
-
-            receita_encontrada = False
-            for receita in receitas:
-                if receita['nome'].lower() == receita_escolhida:
-                    receita_encontrada = True
-                    if categoria == 'nome':
-                        substituido = input(f'Qual nome você deseja atualizar na receita {receita_escolhida}: ').strip()
-                        receita['nome'] = substituido
-                        break
-
-                    elif categoria == 'pais':
-                        substituido = input(f'Digite o nome do novo país atualizado da receita {receita_escolhida}: ').strip()
-                        receita['pais'] = substituido
-                        break
-
-                    elif categoria == 'ingredientes':
-                        escolha = input('Você deseja adicionar ingredientes à categoria ou atualizar todos os ingredientes: [add] para adicionar e [att] para atualizar: ').lower().strip()
-
-                        if escolha == 'add':
-                            add = input(f'Qual item você deseja adicionar na receita {receita_escolhida}: ').strip()
-                            receita['ingredientes'] += f',{add}'
-                            break
-
-                        elif escolha == 'att':
-                            att = input(f'Quais ingredientes você deseja atualizar na receita {receita_escolhida}: ').strip()
-                            receita['ingredientes'] = att
-                            break
-
-                    elif categoria == 'preparo':
-                        substituido = input(f'Qual o modo de preparo você deseja alterar na receita {receita_escolhida}: ').strip()
-                        receita['preparo'] = substituido
-                        break
-
-                    else:
-                        print("Categoria inválida. Por favor, escolha uma das opções válidas.")
-                        continue
-
-            if not receita_encontrada:
-                print(f"Receita '{receita_escolhida}' não encontrada. Por favor, tente novamente.")
-                continue
-
-            with open('receitas.csv', 'w', encoding='utf-8') as file:
-                file.write('nome,pais,ingredientes,preparo\n')
-                for rec in receitas:
-                    file.write(f"{rec['nome']},{rec['pais']},\"{rec['ingredientes']}\",\"{rec['preparo']}\"\n")
-            break
-
-    except FileNotFoundError:
-        print("Arquivo 'receitas.csv' não encontrado.")
-    except Exception as e:
-        print(f"Erro inesperado ao atualizar a receita. Mensagem: {e}")
-
-
-
-import os
-from random import randint
-os.system('cls')
-
-def pega_receita(nome_arquivo):
-   receitas = []
-   try:
-      with open(f'{nome_arquivo}', 'r', encoding='utf-8') as file:
-         next(file)
-         for line in file:
-               try:
-                  nome, pais, *resto = line.strip().split(',', maxsplit=2)
-                  
-                  if resto[0][0] == '"':
-                     resto[0] = resto[0][1:]  
-                  ingredientes, preparo = resto[0].split('","')
-                  preparo = preparo.strip('"')
-
-                  item = {
-                     'nome': nome,
-                     'pais': pais.strip(),
-                     'ingredientes': ingredientes.strip(),
-                     'preparo': preparo
-                  }
-                  receitas.append(item)
-               except ValueError as erro:
-                  print(f"Erro: {erro}.")
-               except Exception as erro:
-                  print(f"Erro: {erro}.")
-   except FileNotFoundError:
-      print(f"Arquivo '{nome_arquivo}' não encontrado.")
-   except Exception as e:
-      print(f"Erro inesperado ao abrir o arquivo '{nome_arquivo}'.")
-   
-   return receitas
-
-
-receitas = pega_receita('receitas.csv')
 
 def adicionar():
    try:
@@ -145,33 +46,34 @@ def adicionar():
 
          for i in range(len(tipos)):
                try:
-                  elemento_nova_receita = input(f'Digite {tipos[i]}: ')
+                  a = input(f'Digite {tipos[i]}: ')
 
                   if i == 0:
-                     novo_elemento['nome'] = elemento_nova_receita
+                     novo_elemento['nome'] = a
                   elif i == 1:
-                     novo_elemento['pais'] = elemento_nova_receita
+                     novo_elemento['pais'] = a
                   elif i == 2:
-                     novo_elemento['ingredientes'] = elemento_nova_receita
+                     novo_elemento['ingredientes'] = a
                   elif i == 3:
-                     novo_elemento['preparo'] = elemento_nova_receita
+                     novo_elemento['preparo'] = a
 
                   if i > 2:
-                     if ' ' in elemento_nova_receita:
-                           file.write(f'"{elemento_nova_receita}"' + '\n')
+                     if ' ' in a:
+                           file.write(f'"{a}"' + '\n')
                      else:
-                           file.write(elemento_nova_receita + '\n')
+                           file.write(a + '\n')
                   else:
-                     if ' ' in elemento_nova_receita:
-                           file.write(f'"{elemento_nova_receita}"' + ',')
+                     if ' ' in a:
+                           file.write(f'"{a}"' + ',')
                      else:
-                           file.write(elemento_nova_receita + ',')
+                           file.write(a + ',')
                except Exception as e:
                   print(f"Erro: {e}.")
    except FileNotFoundError:
       print("Arquivo não encontrado.")
    except Exception as e:
       print(f"Erro: {e}.")
+
 
 def visualizar_elemento():
    try:
@@ -191,6 +93,7 @@ def visualizar_elemento():
    except Exception as e:
       print(f"Erro inesperado ao visualizar a receita. Mensagem: {e}")
 
+
 def filtra_por_pais():
    try:
       nacionalidade = str(input('Digite o país que você deseja filtrar: ')).strip().lower()
@@ -209,6 +112,7 @@ def filtra_por_pais():
          print('País não encontrado')
    except Exception as e:
       print(f"Erro inesperado ao filtrar por país. Mensagem: {e}")
+
 
 def atualizar_elemento():
    try:
@@ -261,6 +165,7 @@ def atualizar_elemento():
    except Exception as e:
       print(f"Erro inesperado ao atualizar a receita. Mensagem: {e}")
 
+
 def add_lista_fav():
    try:
       nome = input('Digite o nome da receita que você deseja adicionar como favorita: ').strip().lower()
@@ -285,6 +190,7 @@ def add_lista_fav():
    except Exception as e:
       print(f"Erro: {e}")
 
+
 def visualizar_favoritos():
    try:      
       lista_fav = pega_receita('receitas_favoritas.csv')
@@ -300,6 +206,7 @@ def visualizar_favoritos():
       print("Arquivo não encontrado.")
    except Exception as e:
       print(f"Erro: {e}")
+
 
 def excluir_receita():
    try:
@@ -322,6 +229,7 @@ def excluir_receita():
    except Exception as e:
       print(f"Erro: {e}")
 
+
 def sugerir_receitas():
    try:
       n_aleatorio = randint(0, (len(receitas) - 1))
@@ -333,6 +241,7 @@ def sugerir_receitas():
       print("Não há receitas cadastradas para sugerir.")
    except Exception as e:
       print(f"Erro: {e}")
+
 
 def sugerir_receitas_fav():
    try:         
@@ -349,6 +258,7 @@ def sugerir_receitas_fav():
    except Exception as e:
       print(f"Erro: {e}")
 
+
 tam = 55
 
 opcoes = {
@@ -364,3 +274,40 @@ opcoes = {
    "999": "Sair"   
 }
 
+while True:
+   print(f"+{'-'*tam}+")
+   print(f"|{'MENU':^{tam}}")
+   print(f"+{'-'*tam}+")
+   for k, v in opcoes.items():
+      print(f"|{f' {k} - {v}':{tam}}|")
+   print(f"+{'-'*tam}+")
+
+   op = input("Escolha uma opção: ")
+
+   if op not in opcoes:
+      print("Opção inválida")
+      continue
+
+   if op == "999":
+      break
+   else:
+      print(f"\n{opcoes[op]}\n")
+
+      if op == "1":
+         adicionar()
+      elif op == "2":
+         visualizar_elemento()
+      elif op == "3":
+         filtra_por_pais()
+      elif op == "4":
+         atualizar_elemento()
+      elif op == "5":
+         excluir_receita()
+      elif op == "6":
+         add_lista_fav()
+      elif op == "7":
+         visualizar_favoritos()
+      elif op == "8":
+         sugerir_receitas()
+      elif op == "9":
+          sugerir_receitas_fav()
