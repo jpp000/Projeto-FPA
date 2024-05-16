@@ -74,13 +74,19 @@ def adicionar():
       print(f"Erro: {e}.")
 
 def visualizar_elemento():
-    nome = input('Digite o nome da receita que você deseja visualizar no cardápio: ').lower().strip()
+   try:
+      nome = input('Digite o nome da receita que você deseja visualizar no cardápio: ').lower().strip()
 
-    cont = 0
-    for receita in receitas:
-        if receita['nome'].lower() == nome:
-            for key, value in receita.items():
-                print(f'{key}: {value}\n')
-            cont += 1
-    if cont == 0:
-        print('O nome dessa receita não foi cadastrado')
+      cont = 0
+      for receita in receitas:
+         try:
+               if receita['nome'].lower() == nome:
+                  for key, value in receita.items():
+                     print(f'{key}: {value}\n')
+                     cont += 1
+         except Exception as e:
+               print(f"Erro ao visualizar a receita. Mensagem: {e}")
+      if cont == 0:
+         print('O nome dessa receita não foi cadastrado')
+   except Exception as e:
+      print(f"Erro inesperado ao visualizar a receita. Mensagem: {e}")
