@@ -45,29 +45,21 @@ def adicionar():
          tipos = ['o nome da receita','o país de origem','os ingredientes','o modo de preparo']
 
          for i in range(len(tipos)):
-                  rec = input(f'Digite {tipos[i]}: ')
+            rec = input(f'Digite {tipos[i]}: ')
 
-                  if i == 0:
-                     novo_elemento['nome'] = rec
-                  elif i == 1:
-                     novo_elemento['pais'] = rec
-                  elif i == 2:
-                     novo_elemento['ingredientes'] = rec
-                  elif i == 3:
-                     novo_elemento['preparo'] = rec
-
-                  if i > 2:
-                     if ' ' in rec:
-                           file.write(f'"{rec}"' + '\n')
-                     else:
-                           file.write(rec + '\n')
-                  else:
-                     if ' ' in rec:
-                           file.write(f'"{rec}"' + ',')
-                     else:
-                           file.write(rec + ',')
-         
+            if i == 0:
+               novo_elemento['nome'] = rec
+            elif i == 1:
+               novo_elemento['pais'] = rec
+            elif i == 2:
+               novo_elemento['ingredientes'] = rec
+            elif i == 3:
+               novo_elemento['preparo'] = rec
+      
          receitas.append(novo_elemento)
+
+         file.write(f"{novo_elemento['nome']},{novo_elemento['pais']},\"{novo_elemento['ingredientes']}\",\"{novo_elemento['preparo']}\"\n")
+         
 
    except FileNotFoundError:
       print("Arquivo não encontrado.")
