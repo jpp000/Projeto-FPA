@@ -30,6 +30,8 @@ Execute o script Python.
 ## Menu Principal
 Ao iniciar o programa, você verá um menu com as seguintes opções:
 
+![Menu](menu.png)
+
 ## Funcionalidades
 
 ### 1. Adicionar Receita
