@@ -118,5 +118,5 @@ Ao iniciar o programa, você verá um menu com as seguintes opções:
 - **Receita não encontrada:** Verifique a ortografia do nome da receita.
 
 ## Fluxograma
-![Fluxograma 1](caminho/para/fluxograma1.png)  
-![Fluxograma 2](caminho/para/fluxograma2.png)
+![Fluxograma](fluxograma.jpeg)  
+
