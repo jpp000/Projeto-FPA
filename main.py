@@ -105,7 +105,7 @@ def filtra_por_pais():
       print(f"Erro inesperado ao filtrar por país. Mensagem: {e}")
 
 
-def atualizar_elemento(receitas):
+def atualizar_elemento():
     try:
         while True:
             receita_escolhida = input('Digite o nome da receita que você deseja atualizar: ').lower().strip()
